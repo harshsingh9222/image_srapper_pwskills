@@ -35,7 +35,7 @@ def index():
                     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"}
 
                             # fetch the search results page
-                    response = requests.get(f"https://www.google.com/search?q={query}&sxsrf=AJOqlzUuff1RXi2mm8I_OqOwT9VjfIDL7w:1676996143273&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiq-qK7gaf9AhXUgVYBHYReAfYQ_AUoA3oECAEQBQ&biw=1920&bih=937&dpr=1#imgrc=1th7VhSesfMJ4M")
+                    response=requests.get(f"https://www.google.com/search?sca_esv=ef2c4b0a2da52218&rlz=1C1GCEA_enIN1054IN1054&sxsrf=ADLYWIJpZEYQ48imHLJWAhLdYRftplTdeg:1718558875135&q={query}&udm=2&fbs=AEQNm0B8dVdIWR07uWWlg1TdKnNtA1cwMugrQsIKmAo5AEZHWRFlUeGLxYlhagMfUatSvHu3MSamP9Qd2SfjyZyVIdPFrZFmdorP0BQX-5QUvERZ7CgntLysKxPYR85LNkkQ-ODVQlzCBgHDwYGwBEtb1wyzIiqYOAGOFOhRLG73H-MUdJY1ZFjTgiSsk2gQgTHDHU_Mnn5ewYy4nGfZAENFgsXyYdMtYQ&sa=X&ved=2ahUKEwiAsZza0uCGAxXjT2wGHRqsDhsQtKgLegQIGxAB&biw=1536&bih=695&dpr=1.25")
 
 
                             # parse the HTML using BeautifulSoup
@@ -58,9 +58,10 @@ def index():
                                 img_data.append(mydict)
                                 with open(os.path.join(save_directory, f"{query}_{image_tags.index(image_tag)}.jpg"), "wb") as f:
                                     f.write(image_data)
-                    client = pymongo.MongoClient("mongodb+srv://snshrivas:Snshrivas@cluster0.ln0bt5m.mongodb.net/?retryWrites=true&w=majority")
+                    uri = "mongodb+srv://harshsingh9222:ranjana526@cluster0.lruqqfb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+                    client =pymongo.MongoClient(uri) 
                     db = client['image_scrap']
-                    review_col = db['image_scrap_data']
+                    review_col = db['image_scrap_data_2']
                     review_col.insert_many(img_data)          
 
                     return "image laoded"
